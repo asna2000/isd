@@ -26,8 +26,6 @@
               print json_encode($row);
         }
 
-        if (isset($_POST['save'])) {
-
         if (isset($_POST['title'])) {
             $title = mysql_real_escape_string($connect, $_POST['title']);
     
@@ -132,6 +130,5 @@
         }
 
     }
-}
     sqlsrv_close($connect);
 ?>
