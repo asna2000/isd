@@ -132,8 +132,6 @@
         }
 
     }
-
 }
-
     sqlsrv_close($connect);
 ?>
