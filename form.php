@@ -33,7 +33,7 @@
                 <h3><a href="/gambar" class="btn btn-sm btn-primary mr-3">Back</a>Add New Announcement</h3>
                 <hr>
 
-                <form action="" method="post">
+                <form action="server.php" method="post">
 
                 <div class="form-group row">
                       <label for="title" class="col-sm-2 col-form-label">Title</label>
