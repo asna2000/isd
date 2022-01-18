@@ -82,7 +82,7 @@
                     </div>
                 </div>
 
-                    <button class="btn btn-primary float-right mb-2">Save</button>
+                    <button class="btn btn-primary float-right mb-2" name="save">Save</button>
 
                   </div>
               </div>
