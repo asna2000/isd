@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <form action="" method="post">
+                <div class="form-group row">
                     <label for="dt" class="col-sm-2 col-form-label">Date to Delete</label>
                      <div class="col-sm-10">
 
@@ -75,14 +75,14 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row mt-3">
                       <label for="reflink" class="col-sm-2 col-form-label">Announcement Link</label>
                     <div class="col-sm-10">
                       <input type="text" id="reflink" class="form-control" name="reflink">
                     </div>
                 </div>
 
-                    <button class="btn btn-primary float-right mb-2">Save</button>
+                    <button class="btn btn-primary float-right mb-2" name="save">Save</button>
 
                   </div>
               </div>
