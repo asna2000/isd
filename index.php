@@ -182,7 +182,7 @@ if( $connect ) {
                                     }
 
                                     while($row = sqlsrv_fetch_array($run, SQLSRV_FETCH_ASSOC)){
-                                        echo "<p>".$row['id'].". ".$row['title']."</p>";
+                                        echo "<p>".$row['title']."</p>";
                                     }
                                     ?>
                                 </marquee>
@@ -206,25 +206,28 @@ if( $connect ) {
                             <div class="row justify-content-md-center">
 
                             <?php
-                            $query = "SELECT * FROM Content";
+                            $query = "SELECT * FROM Content ORDER BY id DESC";
                             $parameters = array();
                             $options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
                             $run = sqlsrv_query($connect, $query, $parameters, $options);
                             $row_count = sqlsrv_num_rows( $run );
+                            $latest = 3;
                             
                             if($run === false){
                                 die( print_r( sqlsrv_errors(), true) );
                             }
-
+                            
                             while($row = sqlsrv_fetch_array($run, SQLSRV_FETCH_ASSOC)){
-                                if($row['id'] < 4){
+                                if($latest <= 3 && $latest > 0){
                                     echo "<div class=\"col col-lg-3 d-flex \" style=\"margin-right: 20px;\" data-aos=\"fade-up\" data-aos-delay=\"100\">
                                     <div class=\"testimonial-item\" onclick=\"window.open('".$row['ref_link']."','mywindow');\">
 
                                         <img src=\"".$row['image_link']."\" class=\"testimonial-img\">
                                         <h2>".$row['title']."</h2>
+                                        <h6>".$row['description']. "</6>
                                     </div>
                                 </div>";
+                                $latest = $latest - 1;
                                 }
                             }
                             ?>
@@ -270,7 +273,7 @@ if( $connect ) {
                                             <div class="swiper-wrapper"> -->
 
                                             <?php
-                                            $query = "SELECT * FROM Content";
+                                            $query = "SELECT * FROM Content ORDER BY id ASC";
                                             $parameters = array();
                                             $options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
                                             $run = sqlsrv_query($connect, $query, $parameters, $options);
@@ -284,20 +287,28 @@ if( $connect ) {
 
                                             echo "<div class=\"swiper-pagination\"></div>
                                             <div class=\"swiper-wrapper\">";
-        
-                                            while($row = sqlsrv_fetch_array($run, SQLSRV_FETCH_ASSOC)){
-                                                if($row['id'] > 3){
-                                                    echo "<div class=\"swiper-slide\">
-                                                                <div class=\"testimonial-item\">
-                                                                    <img src=\"".$row['image_link']."\" class=\"testimonial-img\">
-                                                                    <h2>".$row['title']."</h2>
-                                                                    <div class=\"text-center\">
-                                                                        <a target = '_blank' href=\"".$row['ref_link']."\" class=\"read-btn\">Continue Reading...<i></i></a>
+
+                                            if($row_count > 3){
+                                                $counter = 0;
+                                                $row_count = $row_count - 3;
+                                                while($row = sqlsrv_fetch_array($run, SQLSRV_FETCH_ASSOC)){
+                                                    if($counter < $row_count){
+                                                        echo "<div class=\"swiper-slide\">
+                                                                    <div class=\"testimonial-item\">
+                                                                        <img src=\"".$row['image_link']."\" class=\"testimonial-img\">
+                                                                        <h2>".$row['title']."</h2>
+                                                                        <p>". $row['description']."</p>
+                                                                        <div class=\"text-center\">
+                                                                            <a target = '_blank' href=\"".$row['ref_link']."\" class=\"read-btn\">Continue Reading...<i></i></a>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>";
+                                                                </div>";
+                                                        $counter++;
+                                                    }
                                                 }
                                             }
+        
+                                            
                                             ?>
 
                                                 <!-- <div class="swiper-slide">

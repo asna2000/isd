@@ -32,8 +32,14 @@
     
     }
   
-
-
+    //find greatest id 
+    $queryID = "SELECT * FROM Content ORDER BY id DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ;";
+    $statement2 = sqlsrv_query($connect, $queryID);
+    $greatestID = 0;
+    while($row = sqlsrv_fetch_array($statement2, SQLSRV_FETCH_ASSOC)){
+        $greatestID = $row['id'] + 1;
+    }
+        
 
     //add announcement
     if (isset($_POST['add_new'])) {
@@ -69,7 +75,7 @@
                 if(move_uploaded_file($_FILES["file_name"]["tmp_name"], $target_file)){
                     $image = $target_file;
                     $query = "INSERT INTO ANNOUNCEMENT.dbo.Content
-                                VALUES ($row_count+1,'$title','$description','$date','$image','$reflink')";
+                                VALUES ('$greatestID','$title','$description','$date','$image','$reflink')";
                     // $parameters = array($title, $description, $date, $image, $reflink);
                     $result = sqlsrv_query($connect, $query);
                     if($result === false){
