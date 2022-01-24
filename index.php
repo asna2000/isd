@@ -172,6 +172,7 @@ if( $connect ) {
                                 <marquee class="content" onmouseover="this.stop();" onmouseout="this.start();" scrollamount="12">
                                     <!-- <p>1. DIMINTA SEMUA</p>
                                     <p>2. TRY TRY TEST</p> -->
+                                    <!-- retreive data -->
                                     <?php
                                     $query = "SELECT id,title FROM Content";
                                     $run = sqlsrv_query($connect, $query);
@@ -192,32 +193,63 @@ if( $connect ) {
                 <!-- ======= Middle Section ======= -->
                 
                 <div id="myprofile" class="row tm-row" style="margin-bottom:100px;">
-                    <section  class="testimonials section-bg" style="padding: 100px 300px 100px 300px;">
+                    <section  class="testimonials section-bg" style="padding: 10px 50px 10px 50px;">
                         <div class="container text-center position-relative">
                             <div class="row justify-content-end">
                                 <div data-aos="fade-right">
                                     <div class="section-title" style="padding-bottom: 0px">
-                                        <h2 class="mx-auto" style="width: 200px;">Latest Announcement</h2>
+                                        <h2 class="mx-auto" >Latest Announcement</h2>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                                    <div class="testimonial-item" >
+                            <div class="row justify-content-md-center">
 
-                                        <img src="assets/img/featured/an1.png" class="testimonial-img" alt="">
+                            <?php
+                            $query = "SELECT * FROM Content";
+                            $parameters = array();
+                            $options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+                            $run = sqlsrv_query($connect, $query, $parameters, $options);
+                            $row_count = sqlsrv_num_rows( $run );
+                            
+                            if($run === false){
+                                die( print_r( sqlsrv_errors(), true) );
+                            }
+
+                            while($row = sqlsrv_fetch_array($run, SQLSRV_FETCH_ASSOC)){
+                                if($row['id'] < 4){
+                                    echo "<div class=\"col col-lg-3 d-flex \" style=\"margin-right: 20px;\" data-aos=\"fade-up\" data-aos-delay=\"100\">
+                                    <div class=\"testimonial-item\" onclick=\"window.open('".$row['ref_link']."','mywindow');\">
+
+                                        <img src=\"".$row['image_link']."\" class=\"testimonial-img\">
+                                        <h2>".$row['title']."</h2>
+                                    </div>
+                                </div>";
+                                }
+                            }
+                            ?>
+                            
+                                <!-- <div class="col col-lg-3 d-flex " style="margin-right: 20px;" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="testimonial-item" onclick="window.open('https://istudent.usim.edu.my/index.php?page=page_wrapper&menuID=660','mywindow');">
+
+                                        <img src="assets/img/img_link/an1.png" class="testimonial-img" alt="">
                                         <h2>NOTIS PENGISYTIHARAN AHLI MAJLIS PERWAKILAN PELAJAR 2021</h2>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                                <div class="col col-lg-3 d-flex align-items-stretch" style="margin-right: 20px;" data-aos="fade-up" data-aos-delay="100">
                                     <div class="testimonial-item" >
 
-                                        <img src="assets/img/featured/an1.png" class="testimonial-img" alt="">
+                                        <img src="assets/img/img_link/an2.png" class="testimonial-img" alt="">
                                         <h2>NOTIS PENGISYTIHARAN AHLI MAJLIS PERWAKILAN PELAJAR 2021</h2>
                                     </div>
                                 </div>
-                                
+                                <div class="col col-lg-3 d-flex align-items-stretch" style="margin-right: 20px;"data-aos="fade-up" data-aos-delay="100">
+                                    <div class="testimonial-item" >
+
+                                        <img src="assets/img/img_link/an3.png" class="testimonial-img" alt="">
+                                        <h2>NOTIS PENGISYTIHARAN AHLI MAJLIS PERWAKILAN PELAJAR 2021</h2>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                     </section>
@@ -270,7 +302,7 @@ if( $connect ) {
 
                                                 <!-- <div class="swiper-slide">
                                                     <div class="testimonial-item">
-                                                        <img src="assets/img/img_link/an1.png" class="testimonial-img" style="width: ">
+                                                        <img src="assets/img/img_link/an1.png" class="testimonial-img">
                                                         <h2>Bengkel Online Rekagrafik Photoshop sfsdfhgsdfsdf sdsdfsdfsdf</h2>
                                                         <div class="text-center">
                                                             <a href="article1.html" class="read-btn">Continue Reading...<i></i></a>
@@ -287,7 +319,7 @@ if( $connect ) {
                         </div>
                         <div class="button">
                             <div class="text-center">
-                                <a target = '_blank' href="form.php" class="read-btn">Submit Announcement<i></i></a>
+                                <a href="form.php" class="read-btn">Submit Announcement<i></i></a>
                             </div>
                         </div>
                     </footer>

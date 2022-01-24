@@ -25,7 +25,7 @@
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="assets/img/logo.png" alt="" width="36" height="36" class="d-inline-block align-text-top"> Istudent
+                    <img src="assets/img/logo.ico" alt="" width="36" height="36" class="d-inline-block align-text-top"> Istudent
                 </a>
             </div>
         </nav>
@@ -34,7 +34,7 @@
             <div class="row">
 
                 <div class="col-12">
-                    <h3><a href="/gambar" class="btn btn-sm btn-primary mr-3">Back</a>Add New Announcement</h3>
+                    <h3><a href="index.php" class="btn btn-sm btn-primary mr-3">Back</a>Add New Announcement</h3>
                     <hr>
                     <!-- Title -->
                     

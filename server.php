@@ -15,6 +15,7 @@
         die( print_r( sqlsrv_errors(), true));
    }
    
+   //autodelete 
     $sql = "SELECT * FROM ANNOUNCEMENT.dbo.Content";
     $parameters = array();
     $options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET, 'ReturnDatesAsStrings'=> true );
@@ -34,7 +35,7 @@
 
 
 
-
+    //add announcement
     if (isset($_POST['add_new'])) {
         $title = $_POST['title'];
         $description = $_POST['description'];
@@ -52,7 +53,7 @@
             array_push($errors, "Date is required");
         }
         if(empty($reflink)){
-            array_push($errors, "Reflink is required");
+            $reflink = "#";
         }
         // if(empty($image)){
         //     array_push($errors, "Image is required");
